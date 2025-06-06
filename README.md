@@ -1,5 +1,7 @@
 # 📈 ForecastIQ — Real-Time Stock Forecasting & Trading Signal Dashboard
 
+https://forecastiq-v2.streamlit.app/
+
 **ForecastIQ** is a fully interactive, real-time stock forecasting dashboard built using [Streamlit](https://streamlit.io/), [Facebook Prophet](https://facebook.github.io/prophet/), and [Yahoo Finance](https://pypi.org/project/yfinance/). It empowers users to visualize historical trends, forecast future stock prices, and receive actionable trading signals using RSI and Moving Averages.
 
 ---
