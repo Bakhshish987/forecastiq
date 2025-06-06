@@ -231,8 +231,20 @@ if st.sidebar.button("Run Forecast"):
         st.plotly_chart(fig_rsi)
 
 
-
         # ----------------------------
+        # Forecast Residuals
+        # ----------------------------
+        st.subheader("📉 Forecast Error Distribution")
+        
+        merged['residual'] = merged['y'] - merged['yhat']
+        
+        fig_resid = go.Figure()
+        fig_resid.add_trace(go.Histogram(x=merged['residual'], nbinsx=50, marker_color='indianred'))
+        
+        fig_resid.update_layout(title='Residuals: Actual - Forecast', xaxis_title='Error', yaxis_title='Frequency')
+        st.plotly_chart(fig_resid)
+
+                # ----------------------------
         # Download Forecast
         # ----------------------------
         st.subheader("📥 Download Forecast Data")
@@ -246,20 +258,6 @@ if st.sidebar.button("Run Forecast"):
             file_name=f"{ticker}_forecast.csv",
             mime='text/csv'
         )
-
-
-        # ----------------------------
-        # Forecast Residuals
-        # ----------------------------
-        st.subheader("📉 Forecast Error Distribution")
-        
-        merged['residual'] = merged['y'] - merged['yhat']
-        
-        fig_resid = go.Figure()
-        fig_resid.add_trace(go.Histogram(x=merged['residual'], nbinsx=50, marker_color='indianred'))
-        
-        fig_resid.update_layout(title='Residuals: Actual - Forecast', xaxis_title='Error', yaxis_title='Frequency')
-        st.plotly_chart(fig_resid)
 
 
 
