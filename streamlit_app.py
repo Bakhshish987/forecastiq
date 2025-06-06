@@ -11,7 +11,6 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
 st.title("📈 ForecastIQ: Stock Price Predictor")
-st.write("Predict stock prices using Facebook Prophet and live Yahoo Finance data.")
 
 # ----------------------------
 # Sidebar Inputs
@@ -151,7 +150,5 @@ st.sidebar.markdown("""
 **About ForecastIQ**
 
 ForecastIQ is a stock price prediction application that uses live market data from Yahoo Finance and time series modeling with Facebook Prophet to forecast future price trends.
-
-The app demonstrates applied skills in data preprocessing, time series forecasting, and web-based deployment using Python and Streamlit. It is intended for business and finance use cases where quick, interpretable forecasting is valuable.
 """)
 
