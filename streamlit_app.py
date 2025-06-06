@@ -145,3 +145,13 @@ if st.sidebar.button("Run Forecast"):
 
     except Exception as e:
         st.error(f"❌ Error: {e}")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("""
+**About ForecastIQ**
+
+ForecastIQ is a stock price prediction application that uses live market data from Yahoo Finance and time series modeling with Facebook Prophet to forecast future price trends.
+
+The app demonstrates applied skills in data preprocessing, time series forecasting, and web-based deployment using Python and Streamlit. It is intended for business and finance use cases where quick, interpretable forecasting is valuable.
+""")
+
