@@ -166,5 +166,7 @@ st.sidebar.markdown("""
 **About ForecastIQ**
 
 ForecastIQ is a stock price prediction application that uses live market data from Yahoo Finance and time series modeling with Facebook Prophet to forecast future price trends.
+
+Built by Bakhshish Sethi.
 """)
 
