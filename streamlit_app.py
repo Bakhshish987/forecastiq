@@ -45,9 +45,9 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         future_price = forecast.iloc[-1]['yhat']
         recent_avg = df['y'].tail(7).mean()
-
-        st.markdown(f"<div class='big-number'>💰 Forecasted Price: ${future_price:.2f}</div>", unsafe_allow_html=True)
-
+        
+        st.markdown(f"<div class='big-number'>Forecasted Price: ${future_price:.2f}</div>", unsafe_allow_html=True)
+        
         # ----------------------------
         # Buy/Sell Recommendation
         # ----------------------------
@@ -57,13 +57,15 @@ if st.sidebar.button("Run Forecast"):
             signal = "📉 SELL"
         else:
             signal = "🤝 HOLD"
-
+        
         st.markdown(f"""
-            <div style='text-align: center; font-size:20px; margin-bottom: 20px;'>
-            🔥 Action Recommendation: <strong>{signal}</strong><br>
-            Recent 7-Day Avg: ${recent_avg:.2f}
+            <div style='text-align: center; font-size:24px; margin-bottom: 25px; font-weight: bold;'>
+                💰 Forecasted Price: <span style='color:#0E76A8;'>${future_price:.2f}</span><br>
+                🔥 Action Recommendation: <strong>{signal}</strong><br>
+                <span style='font-size:18px;'>Recent 7-Day Avg: ${recent_avg:.2f}</span>
             </div>
         """, unsafe_allow_html=True)
+
 
         # ----------------------------
         # Full-Range Forecast Plot (original)
