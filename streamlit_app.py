@@ -20,6 +20,25 @@ st.sidebar.header("Welcome to ForecastIQ!")
 ticker = st.sidebar.text_input("Enter stock ticker (e.g., AAPL, TSLA, AMZN)", value="AAPL")
 n_days = st.sidebar.slider("Days to forecast", min_value=30, max_value=180, value=60, step=15)
 
+with st.sidebar.expander("📌 Popular Tickers Reference"):
+    st.markdown("""
+    | Company        | Ticker |
+    |----------------|--------|
+    | Apple          | AAPL   |
+    | Tesla          | TSLA   |
+    | Amazon         | AMZN   |
+    | Microsoft      | MSFT   |
+    | Nvidia         | NVDA   |
+    | Google (Alphabet) | GOOGL |
+    | Meta (Facebook)| META   |
+    | Netflix        | NFLX   |
+    | Bitcoin ETF    | BITO   |
+    | S&P 500 ETF    | SPY    |
+    | NASDAQ-100 ETF | QQQ    |
+    | Dow Jones ETF  | DIA    |
+    """)
+
+
 if st.sidebar.button("Run Forecast"):
     try:
         # ----------------------------
