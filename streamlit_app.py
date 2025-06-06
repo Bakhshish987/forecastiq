@@ -184,6 +184,27 @@ if st.sidebar.button("Run Forecast"):
         st.plotly_chart(fig_ma)
 
         # ----------------------------
+        # RSI Visualization
+        # ----------------------------
+        st.subheader("📉 RSI (Relative Strength Index)")
+        
+        fig_rsi = go.Figure()
+        fig_rsi.add_trace(go.Scatter(x=df['ds'], y=df['RSI'], mode='lines', name='RSI', line=dict(color='orange')))
+        
+        # Add overbought/oversold zones
+        fig_rsi.add_shape(type='line', x0=df['ds'].min(), x1=df['ds'].max(), y0=70, y1=70,
+                          line=dict(color='red', dash='dash'), name='Overbought')
+        fig_rsi.add_shape(type='line', x0=df['ds'].min(), x1=df['ds'].max(), y0=30, y1=30,
+                          line=dict(color='green', dash='dash'), name='Oversold')
+        
+        fig_rsi.update_layout(title='14-Day RSI Indicator',
+                              yaxis_title='RSI Value',
+                              xaxis_title='Date',
+                              showlegend=False)
+        st.plotly_chart(fig_rsi)
+
+
+        # ----------------------------
         # Download Forecast
         # ----------------------------
         st.subheader("📥 Download Forecast Data")
