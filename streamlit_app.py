@@ -85,7 +85,7 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         # Zoomed-In Forecast Plot
         # ----------------------------
-        st.subheader("🔍 Zoomed-In Forecast (Last 30 + Next X Days)")
+        st.subheader("🔍 Zoomed-In Forecast (Last 30 Days + Future)")
         focus_start = forecast['ds'].iloc[-(n_days + 30)]
         focus_data = forecast[forecast['ds'] >= focus_start]
 
