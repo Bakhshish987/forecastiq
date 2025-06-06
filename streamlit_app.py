@@ -198,6 +198,51 @@ if st.sidebar.button("Run Forecast"):
         
         st.markdown(f"<div style='text-align:center;'>{rsi_note}</div>", unsafe_allow_html=True)
 
+        # ----------------------------
+        # Trend Analysis: Moving Averages
+        # ----------------------------
+        st.subheader("📊 Trend Analysis: Moving Averages")
+        
+        df['MA_7'] = df['y'].rolling(window=7).mean()
+        df['MA_30'] = df['y'].rolling(window=30).mean()
+        
+        fig_ma = go.Figure()
+        fig_ma.add_trace(go.Scatter(x=df['ds'], y=df['y'], mode='lines', name='Actual Price', line=dict(color='black')))
+        fig_ma.add_trace(go.Scatter(x=df['ds'], y=df['MA_7'], mode='lines', name='7-Day MA', line=dict(dash='dash')))
+        fig_ma.add_trace(go.Scatter(x=df['ds'], y=df['MA_30'], mode='lines', name='30-Day MA', line=dict(dash='dot')))
+        
+        fig_ma.update_layout(title='Price Trend with Moving Averages', xaxis_title='Date', yaxis_title='Price')
+        st.plotly_chart(fig_ma)
+
+        # ----------------------------
+        # Download Forecast
+        # ----------------------------
+        st.subheader("📥 Download Forecast Data")
+        
+        download_df = forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']]
+        download_csv = download_df.to_csv(index=False).encode('utf-8')
+        
+        st.download_button(
+            label="Download Forecast CSV",
+            data=download_csv,
+            file_name=f"{selected_stock}_forecast.csv",
+            mime='text/csv'
+        )
+
+
+        # ----------------------------
+        # Forecast Residuals
+        # ----------------------------
+        st.subheader("📉 Forecast Error Distribution")
+        
+        merged['residual'] = merged['y'] - merged['yhat']
+        
+        fig_resid = go.Figure()
+        fig_resid.add_trace(go.Histogram(x=merged['residual'], nbinsx=50, marker_color='indianred'))
+        
+        fig_resid.update_layout(title='Residuals: Actual - Forecast', xaxis_title='Error', yaxis_title='Frequency')
+        st.plotly_chart(fig_resid)
+
 
 
         # ----------------------------
