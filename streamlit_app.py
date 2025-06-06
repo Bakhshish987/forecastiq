@@ -226,7 +226,7 @@ if st.sidebar.button("Run Forecast"):
         st.download_button(
             label="Download Forecast CSV",
             data=download_csv,
-            file_name=f"{selected_stock}_forecast.csv",
+            file_name=f"{ticker}_forecast.csv",
             mime='text/csv'
         )
 
