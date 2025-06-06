@@ -53,6 +53,19 @@ if st.sidebar.button("Run Forecast"):
         df['y'] = df['y'].astype(float)
         recent_price = df['y'].iloc[-1]  # Last known actual closing price
 
+        # --- RSI Calculation (Pandas only) ---
+        delta = df['y'].diff()
+        gain = delta.where(delta > 0, 0)
+        loss = -delta.where(delta < 0, 0)
+        
+        avg_gain = gain.rolling(window=14, min_periods=14).mean()
+        avg_loss = loss.rolling(window=14, min_periods=14).mean()
+        
+        rs = avg_gain / avg_loss
+        df['rsi'] = 100 - (100 / (1 + rs))
+        latest_rsi = df['rsi'].iloc[-1]
+
+
         # ----------------------------
         # Prophet Forecast
         # ----------------------------
@@ -151,6 +164,23 @@ if st.sidebar.button("Run Forecast"):
             st.metric("MAE", f"${mae:.2f}")
         with col2:
             st.metric("RMSE", f"${rmse:.2f}")
+
+        st.markdown(f"""
+        <div style='text-align:center; font-size:20px; margin-top:20px;'>
+            14-Day RSI: <strong>{latest_rsi:.2f}</strong>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        # Optional signal
+        if latest_rsi > 70:
+            rsi_note = "<span style='color:red;'>⚠️ Overbought</span>"
+        elif latest_rsi < 30:
+            rsi_note = "<span style='color:green;'>✅ Oversold</span>"
+        else:
+            rsi_note = "Neutral Zone"
+        
+        st.markdown(f"<div style='text-align:center;'>{rsi_note}</div>", unsafe_allow_html=True)
+
 
         # ----------------------------
         # Footer
