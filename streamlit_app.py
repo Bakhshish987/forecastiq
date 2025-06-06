@@ -11,6 +11,8 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
 st.title("📈 ForecastIQ: Stock Price Predictor")
+st.write("Use the side bar to select a stock and make predictions!.")
+
 
 # ----------------------------
 # Sidebar Inputs
