@@ -93,6 +93,9 @@ if st.sidebar.button("Run Forecast"):
                 
         st.markdown(f"""
         <div style='text-align:center; font-size:24px; margin-bottom:25px;'>
+            <p style='margin:0;'>
+                {ticker}
+            </p>
             <p style='color:#555555; font-weight:500; margin:0;'>
                 Most Recent Closing Price: ${recent_price:.2f}
             </p>
