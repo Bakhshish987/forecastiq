@@ -16,7 +16,7 @@ st.write("Predict stock prices using Facebook Prophet and live Yahoo Finance dat
 # ----------------------------
 # Sidebar Inputs
 # ----------------------------
-st.sidebar.header("User Input")
+st.sidebar.header("Welcome to ForecastIQ!")
 ticker = st.sidebar.text_input("Enter stock ticker (e.g., AAPL, TSLA, AMZN)", value="AAPL")
 n_days = st.sidebar.slider("Days to forecast", min_value=30, max_value=180, value=60, step=15)
 
