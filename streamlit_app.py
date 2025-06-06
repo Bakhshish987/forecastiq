@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 
 # ----------------------------
-# Page Setup & Branding
+# Page Setup & Styling
 # ----------------------------
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
@@ -16,10 +16,12 @@ st.markdown("""
             font-size:42px;
             font-weight:bold;
             color:#0E1117;
+            text-align: center;
         }
         .subtitle {
             font-size:18px;
             color:#6c757d;
+            text-align: center;
         }
         .big-number {
             font-size:36px;
@@ -31,7 +33,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.markdown("<div class='main-title'>📈 ForecastIQ: Stock Price Predictor</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Powered by Yahoo Finance & Facebook Prophet • Built by Bakhshish Sethi</div><br>", unsafe_allow_html=True)
+st.markdown("<div class='subtitle'>Predict stock prices using live Yahoo Finance data and Facebook Prophet.</div><br>", unsafe_allow_html=True)
 
 # ----------------------------
 # Sidebar Inputs
@@ -61,46 +63,16 @@ if st.sidebar.button("Run Forecast"):
         forecast = model.predict(future)
 
         # ----------------------------
-        # Forecasted Price Display
+        # Prediction Display (Big Font)
         # ----------------------------
         future_price = forecast.iloc[-1]['yhat']
-        st.markdown(f"""
-            <h2 style='text-align: center;'>💰 Predicted Price: <span style='color:#0E76A8;'>${future_price:.2f}</span></h2>
-        """, unsafe_allow_html=True)
-
-        # ----------------------------
-        # Zoomed Forecast Plot
-        # ----------------------------
-        focus_start = forecast['ds'].iloc[-(n_days + 30)]
-        focus_data = forecast[forecast['ds'] >= focus_start]
-
-        fig, ax = plt.subplots(figsize=(12, 6))
-        ax.plot(focus_data['ds'], focus_data['yhat'], label='🔵 Forecast', color='blue', linewidth=2)
-        ax.fill_between(focus_data['ds'], focus_data['yhat_lower'], focus_data['yhat_upper'], color='skyblue', alpha=0.3)
-        ax.set_title(f"{ticker} Stock Price Forecast (Last 30 + Next {n_days} Days)", fontsize=16, fontweight='bold')
-        ax.set_xlabel("Date")
-        ax.set_ylabel("Price (USD)")
-        ax.grid(True)
-        ax.legend()
-        st.pyplot(fig)
-
-        # ----------------------------
-        # Forecast Components
-        # ----------------------------
-        st.subheader("📊 Forecast Components (Trend, Seasonality)")
-        fig2 = model.plot_components(forecast)
-        st.pyplot(fig2)
-
-        # ----------------------------
-        # Metrics & Buy/Sell Signal
-        # ----------------------------
-        st.subheader("📈 Model Evaluation & Recommendation")
-        merged = pd.merge(df, forecast[['ds', 'yhat']], on='ds', how='inner')
-        mae = mean_absolute_error(merged['y'], merged['yhat'])
-        rmse = mean_squared_error(merged['y'], merged['yhat']) ** 0.5
         recent_avg = df['y'].tail(7).mean()
 
-        # Signal logic
+        st.markdown(f"<div class='big-number'>💰 Forecasted Price: ${future_price:.2f}</div>", unsafe_allow_html=True)
+
+        # ----------------------------
+        # Buy/Sell Recommendation
+        # ----------------------------
         if future_price > recent_avg * 1.03:
             signal = "💰 BUY"
         elif future_price < recent_avg * 0.97:
@@ -108,15 +80,65 @@ if st.sidebar.button("Run Forecast"):
         else:
             signal = "🤝 HOLD"
 
-        # Columns Layout
+        st.markdown(f"""
+            <div style='text-align: center; font-size:20px; margin-bottom: 20px;'>
+            🔥 Action Recommendation: <strong>{signal}</strong><br>
+            Recent 7-Day Avg: ${recent_avg:.2f}
+            </div>
+        """, unsafe_allow_html=True)
+
+        # ----------------------------
+        # Full-Range Forecast Plot (original)
+        # ----------------------------
+        st.subheader("📉 Full Forecast Overview (with historical data)")
+        fig_full, ax_full = plt.subplots(figsize=(12, 6))
+        ax_full.plot(df['ds'], df['y'], 'k.', label='⚫ Historical Price')
+        ax_full.plot(forecast['ds'], forecast['yhat'], 'b-', label='🔵 Forecast')
+        ax_full.fill_between(forecast['ds'], forecast['yhat_lower'], forecast['yhat_upper'], color='skyblue', alpha=0.3, label='🔷 Confidence Interval')
+        ax_full.set_title(f"{ticker} Full Stock Price Forecast", fontsize=16, fontweight='bold')
+        ax_full.set_xlabel("Date")
+        ax_full.set_ylabel("Price (USD)")
+        ax_full.grid(True)
+        ax_full.legend()
+        st.pyplot(fig_full)
+
+        # ----------------------------
+        # Zoomed-In Forecast Plot
+        # ----------------------------
+        st.subheader("🔍 Zoomed-In Forecast (Last 30 + Next X Days)")
+        focus_start = forecast['ds'].iloc[-(n_days + 30)]
+        focus_data = forecast[forecast['ds'] >= focus_start]
+
+        fig_zoom, ax_zoom = plt.subplots(figsize=(12, 6))
+        ax_zoom.plot(focus_data['ds'], focus_data['yhat'], label='🔵 Forecast', color='blue', linewidth=2)
+        ax_zoom.fill_between(focus_data['ds'], focus_data['yhat_lower'], focus_data['yhat_upper'], color='skyblue', alpha=0.3)
+        ax_zoom.set_title(f"{ticker} Focused Forecast (Next {n_days} Days)", fontsize=16, fontweight='bold')
+        ax_zoom.set_xlabel("Date")
+        ax_zoom.set_ylabel("Price (USD)")
+        ax_zoom.grid(True)
+        ax_zoom.legend()
+        st.pyplot(fig_zoom)
+
+        # ----------------------------
+        # Forecast Components (Optional)
+        # ----------------------------
+        st.subheader("🧠 Prophet Model Components")
+        fig2 = model.plot_components(forecast)
+        st.pyplot(fig2)
+
+        # ----------------------------
+        # Model Evaluation
+        # ----------------------------
+        st.subheader("📈 Model Evaluation")
+        merged = pd.merge(df, forecast[['ds', 'yhat']], on='ds', how='inner')
+        mae = mean_absolute_error(merged['y'], merged['yhat'])
+        rmse = mean_squared_error(merged['y'], merged['yhat']) ** 0.5
+
         col1, col2 = st.columns(2)
         with col1:
             st.metric("MAE", f"${mae:.2f}")
-            st.metric("RMSE", f"${rmse:.2f}")
         with col2:
-            st.markdown("### 🔥 Action Recommendation")
-            st.markdown(f"**Recent Avg (7d):** ${recent_avg:.2f}")
-            st.markdown(f"### ✅ Recommended: **{signal}**")
+            st.metric("RMSE", f"${rmse:.2f}")
 
         # ----------------------------
         # Footer
@@ -126,4 +148,3 @@ if st.sidebar.button("Run Forecast"):
 
     except Exception as e:
         st.error(f"❌ Error: {e}")
-
