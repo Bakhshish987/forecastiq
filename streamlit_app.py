@@ -10,30 +10,8 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 # ----------------------------
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
-st.markdown("""
-    <style>
-        .main-title {
-            font-size:42px;
-            font-weight:bold;
-            color:#0E1117;
-            text-align: center;
-        }
-        .subtitle {
-            font-size:18px;
-            color:#6c757d;
-            text-align: center;
-        }
-        .big-number {
-            font-size:36px;
-            font-weight:bold;
-            color:#0E76A8;
-            text-align: center;
-        }
-    </style>
-""", unsafe_allow_html=True)
-
-st.markdown("<div class='main-title'>📈 ForecastIQ: Stock Price Predictor</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Predict stock prices using live Yahoo Finance data and Facebook Prophet.</div><br>", unsafe_allow_html=True)
+st.title("📈 ForecastIQ: Stock Price Predictor")
+st.write("Predict stock prices using Facebook Prophet and live Yahoo Finance data.")
 
 # ----------------------------
 # Sidebar Inputs
