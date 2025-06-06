@@ -78,7 +78,7 @@ if st.sidebar.button("Run Forecast"):
         
         st.markdown(f"""
             <div style='text-align: center; font-size:24px; margin-bottom: 25px; font-weight: bold;'>
-                Forecasted Price: <span style='color:#0E76A8;'>${future_price:.2f}</span><br>
+                {n_days}-Day Forecasted Price: <span style='color:#0E76A8;'>${future_price:.2f}</span><br>
                 Action Recommendation: <strong>{signal}</strong><br>
                 <span style='font-size:18px;'>Recent 7-Day Avg: ${recent_avg:.2f}</span>
             </div>
