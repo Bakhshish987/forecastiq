@@ -11,7 +11,7 @@ import plotly.graph_objects as go
 # ----------------------------
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
-st.title("📈 ForecastIQ: Stock Price Predictor")
+st.title("📈 ForecastIQ: Real-Time Stock Forecasting")
 st.write("Use the sidebar to select a stock and generate forecasts.")
 
 
