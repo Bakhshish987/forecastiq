@@ -46,8 +46,6 @@ if st.sidebar.button("Run Forecast"):
         future_price = forecast.iloc[-1]['yhat']
         recent_avg = df['y'].tail(7).mean()
         
-        st.markdown(f"<div class='big-number'>Forecasted Price: ${future_price:.2f}</div>", unsafe_allow_html=True)
-        
         # ----------------------------
         # Buy/Sell Recommendation
         # ----------------------------
