@@ -189,19 +189,47 @@ if st.sidebar.button("Run Forecast"):
         st.subheader("📉 RSI (Relative Strength Index)")
         
         fig_rsi = go.Figure()
-        fig_rsi.add_trace(go.Scatter(x=df['ds'], y=df['RSI'], mode='lines', name='RSI', line=dict(color='orange')))
         
-        # Add overbought/oversold zones
-        fig_rsi.add_shape(type='line', x0=df['ds'].min(), x1=df['ds'].max(), y0=70, y1=70,
-                          line=dict(color='red', dash='dash'), name='Overbought')
-        fig_rsi.add_shape(type='line', x0=df['ds'].min(), x1=df['ds'].max(), y0=30, y1=30,
-                          line=dict(color='green', dash='dash'), name='Oversold')
+        # Plot RSI line
+        fig_rsi.add_trace(go.Scatter(
+            x=df['ds'],
+            y=df['rsi'],
+            mode='lines',
+            name='RSI',
+            line=dict(color='orange')
+        ))
         
-        fig_rsi.update_layout(title='14-Day RSI Indicator',
-                              yaxis_title='RSI Value',
-                              xaxis_title='Date',
-                              showlegend=False)
+        # Add overbought (70) and oversold (30) lines
+        fig_rsi.add_shape(
+            type='line',
+            x0=df['ds'].min(),
+            x1=df['ds'].max(),
+            y0=70,
+            y1=70,
+            line=dict(color='red', dash='dash')
+        )
+        
+        fig_rsi.add_shape(
+            type='line',
+            x0=df['ds'].min(),
+            x1=df['ds'].max(),
+            y0=30,
+            y1=30,
+            line=dict(color='green', dash='dash')
+        )
+        
+        # Layout tweaks
+        fig_rsi.update_layout(
+            title='14-Day RSI Indicator',
+            yaxis_title='RSI Value',
+            xaxis_title='Date',
+            showlegend=False,
+            height=400
+        )
+        
+        # Display chart
         st.plotly_chart(fig_rsi)
+
 
 
         # ----------------------------
