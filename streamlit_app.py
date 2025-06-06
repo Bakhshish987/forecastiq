@@ -11,7 +11,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 st.set_page_config(page_title="ForecastIQ", layout="wide")
 
 st.title("📈 ForecastIQ: Stock Price Predictor")
-st.write("Use the side bar to select a stock and make predictions!.")
+st.write("Use the sidebar to select a stock and generate forecasts.")
 
 
 # ----------------------------
@@ -78,13 +78,22 @@ if st.sidebar.button("Run Forecast"):
             signal = "HOLD"
         
         st.markdown(f"""
-            <div style='text-align: center; font-size:24px; margin-bottom: 25px; font-weight: bold;'>
-                Most Recent Closing Price: <span style='color:#0E76A8;'>${recent_price:.2f}</span><br>
-                {n_days}-Day Forecasted Price: <span style='color:#0E76A8;'>${future_price:.2f}</span><br>
+            <div style='text-align: center; font-size:24px; margin-bottom: 25px;'>
+        
+                <span style='color:#555555; font-weight: 500;'>
+                    Most Recent Closing Price: ${recent_price:.2f}
+                </span><br>
+        
+                {n_days}-Day Forecasted Price:
+                <span style='color:#1B4FDE; font-weight: bold;'>${future_price:.2f}</span><br>
+        
                 Action Recommendation: <strong>{signal}</strong><br>
+        
                 <span style='font-size:18px;'>Recent 7-Day Avg: ${recent_avg:.2f}</span>
+        
             </div>
         """, unsafe_allow_html=True)
+
 
 
         # ----------------------------
