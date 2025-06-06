@@ -84,7 +84,7 @@ if st.sidebar.button("Run Forecast"):
             </p>
             <p style='margin:0;'>
                 {n_days}-Day Forecasted Price:
-                <span style='color:#1B4FDE; font-weight:bold;'>${future_price:.2f}</span>
+                <span style='color:#3498DB; font-weight:bold;'>${future_price:.2f}</span>
             </p>
             <p style='margin:0;'>
                 Action Recommendation: <strong>{signal}</strong>
