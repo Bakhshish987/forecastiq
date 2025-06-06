@@ -4,6 +4,7 @@ from prophet import Prophet
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error
+import plotly.graph_objects as go
 
 # ----------------------------
 # Page Setup & Styling
