@@ -20,7 +20,7 @@ st.sidebar.header("Welcome to ForecastIQ!")
 ticker = st.sidebar.text_input("Enter stock ticker (e.g., AAPL, TSLA, AMZN)", value="AAPL")
 n_days = st.sidebar.slider("Days to forecast", min_value=30, max_value=180, value=60, step=15)
 
-with st.sidebar.expander("📌 Popular Tickers Reference"):
+with st.sidebar.expander("Popular Tickers Reference"):
     st.markdown("""
     | Company        | Ticker |
     |----------------|--------|
