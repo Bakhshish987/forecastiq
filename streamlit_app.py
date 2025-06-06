@@ -166,38 +166,6 @@ if st.sidebar.button("Run Forecast"):
         with col2:
             st.metric("RMSE", f"${rmse:.2f}")
 
-        # ----------------------------
-        # Technical Indicator: RSI
-        # ----------------------------
-        st.subheader("📊 Technical Indicator: RSI (14-Day)")
-        
-        # Calculate RSI using pandas
-        delta = df['y'].diff()
-        gain = delta.where(delta > 0, 0)
-        loss = -delta.where(delta < 0, 0)
-        
-        avg_gain = gain.rolling(window=14, min_periods=14).mean()
-        avg_loss = loss.rolling(window=14, min_periods=14).mean()
-        rs = avg_gain / avg_loss
-        df['rsi'] = 100 - (100 / (1 + rs))
-        latest_rsi = df['rsi'].iloc[-1]
-        
-        # Display RSI
-        st.markdown(f"""
-        <div style='text-align:center; font-size:20px; margin-top:10px;'>
-            14-Day RSI: <strong>{latest_rsi:.2f}</strong>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        # Interpretation
-        if latest_rsi > 70:
-            rsi_note = "<span style='color:red;'>⚠️ Overbought</span>"
-        elif latest_rsi < 30:
-            rsi_note = "<span style='color:green;'>✅ Oversold</span>"
-        else:
-            rsi_note = "Neutral Zone"
-        
-        st.markdown(f"<div style='text-align:center;'>{rsi_note}</div>", unsafe_allow_html=True)
 
         # ----------------------------
         # Trend Analysis: Moving Averages
