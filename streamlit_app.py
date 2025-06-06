@@ -76,23 +76,30 @@ if st.sidebar.button("Run Forecast"):
             signal = "📉 SELL"
         else:
             signal = "HOLD"
-        
+                
         st.markdown(f"""
-            <div style='text-align: center; font-size:24px; margin-bottom: 25px;'>
+        <div style='text-align: center; font-size:24px; margin-bottom: 25px;'>
         
-                <span style='color:#555555; font-weight: 500;'>
-                    Most Recent Closing Price: ${recent_price:.2f}
-                </span><br>
-        
-                {n_days}-Day Forecasted Price:
-                <span style='color:#1B4FDE; font-weight: bold;'>${future_price:.2f}</span><br>
-        
-                Action Recommendation: <strong>{signal}</strong><br>
-        
-                <span style='font-size:18px;'>Recent 7-Day Avg: ${recent_avg:.2f}</span>
-        
+            <div style='color:#555555; font-weight: 500;'>
+                Most Recent Closing Price: ${recent_price:.2f}
             </div>
+        
+            <div>
+                {n_days}-Day Forecasted Price:
+                <span style='color:#1B4FDE; font-weight: bold;'>${future_price:.2f}</span>
+            </div>
+        
+            <div>
+                Action Recommendation: <strong>{signal}</strong>
+            </div>
+        
+            <div style='font-size:18px;'>
+                Recent 7-Day Avg: ${recent_avg:.2f}
+            </div>
+        
+        </div>
         """, unsafe_allow_html=True)
+
 
 
 
