@@ -1,3 +1,4 @@
+import appdirs; appdirs.user_cache_dir = lambda *args, **kwargs: "/tmp"
 import streamlit as st
 import yfinance as yf
 st.write("yfinance version:", yf.__version__)
