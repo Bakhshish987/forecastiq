@@ -63,7 +63,7 @@ if st.sidebar.button("Run Forecast"):
         df = data.reset_index()[['Date', 'Close']]
         df.columns = ['ds', 'y']
         df = df.dropna()
-        df['ds'] = pd.to_datetime(df['ds'])
+        df['ds'] = pd.to_datetime(df['ds']).dt.tz_localize(None)
         df['y'] = df['y'].astype(float)
         recent_price = df['y'].iloc[-1]  # Last known actual closing price
 
