@@ -21,7 +21,7 @@ n_days = st.sidebar.slider("Days to forecast", min_value=30, max_value=180, valu
 if st.sidebar.button("Run Forecast"):
     try:
         # Fetch data from Alpha Vantage
-        url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker}&outputsize=full&apikey={API_KEY}"
+        url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol={ticker}&outputsize=full&apikey={API_KEY}"
         response = requests.get(url)
         data = response.json()
 
