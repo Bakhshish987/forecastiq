@@ -46,7 +46,7 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         # Load & Prepare Data
         # ----------------------------
-        data = yf.download(ticker, start="2019-01-01")
+        data = yf.download(ticker, start="2019-01-01", auto_adjust=True)
         df = data.reset_index()
         df['y'] = df['Close']  # Use raw close to avoid adj close bugs
         df = df[['Date', 'y']].dropna()
