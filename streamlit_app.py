@@ -74,7 +74,7 @@ n_days = st.sidebar.slider("Days to forecast", min_value=30, max_value=180, valu
 # Add data source options
 data_period = st.sidebar.selectbox(
     "Data Period",
-    ["2y", "1y", "6mo", "3mo", "1mo"],
+    ["1y", "2y", "6mo", "3mo", "1mo"],
     index=0
 )
 
