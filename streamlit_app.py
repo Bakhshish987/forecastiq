@@ -47,6 +47,7 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         # Load & Prepare Data
         # ----------------------------
+        data = yf.download(ticker, start="2019-01-01", auto_adjust=True)
         st.write("Downloaded data (last 5 rows):")
         st.write(data.tail())
 
