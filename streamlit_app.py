@@ -48,12 +48,17 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         # Load & Prepare Data
         # ----------------------------
-        data = yf.download(ticker, start="2019-01-01", auto_adjust=True)
-        st.write("Downloaded data (last 5 rows):")
-        st.write(data.tail())
+        session = yf.Ticker(ticker)
+        hist = session.history(start="2019-01-01", auto_adjust=True)
+        
+        if hist.empty:
+            st.error("yfinance history() returned no data.")
+            st.stop()
+        
+        data = hist.reset_index()
+        st.write("✅ Raw history data:")
+        st.dataframe(data.tail())
 
-        st.write("Data shape:", data.shape)
-        st.write("Latest available date:", data.index[-1] if not data.empty else "No data")
 
         df = data.reset_index()[['Date', 'Close']]
         df.columns = ['ds', 'y']
