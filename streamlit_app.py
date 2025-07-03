@@ -1,5 +1,6 @@
 import streamlit as st
 import yfinance as yf
+st.write("yfinance version:", yf.__version__)
 from prophet import Prophet
 import pandas as pd
 import matplotlib.pyplot as plt
