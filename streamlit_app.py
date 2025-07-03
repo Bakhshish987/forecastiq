@@ -156,6 +156,9 @@ if st.sidebar.button("Run Forecast"):
             df.columns = ['ds', 'y']
             df = df.dropna()
             df['ds'] = pd.to_datetime(df['ds'])
+            # Remove timezone information if present (Prophet doesn't support timezones)
+            if df['ds'].dt.tz is not None:
+                df['ds'] = df['ds'].dt.tz_localize(None)
             df['y'] = df['y'].astype(float)
             recent_price = df['y'].iloc[-1]  # Last known actual closing price
 
