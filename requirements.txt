@@ -5,3 +5,4 @@ pandas
 matplotlib
 scikit-learn
 plotly
+appdirs
