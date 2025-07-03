@@ -30,7 +30,7 @@ if st.sidebar.button("Run Forecast"):
             st.stop()
 
         df = pd.DataFrame.from_dict(data["Time Series (Daily)"], orient="index")
-        df = df.rename(columns={"5. adjusted close": "y"})
+        df = df.rename(columns={"4. close": "y"})
         df["ds"] = pd.to_datetime(df.index)
         df["y"] = df["y"].astype(float)
         df = df[["ds", "y"]].sort_values("ds").reset_index(drop=True)
