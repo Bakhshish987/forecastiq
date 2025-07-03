@@ -47,7 +47,12 @@ if st.sidebar.button("Run Forecast"):
         # ----------------------------
         # Load & Prepare Data
         # ----------------------------
-        data = yf.download(ticker, start="2019-01-01")
+        st.write("Downloaded data (last 5 rows):")
+        st.write(data.tail())
+
+        st.write("Data shape:", data.shape)
+        st.write("Latest available date:", data.index[-1] if not data.empty else "No data")
+
         df = data.reset_index()[['Date', 'Close']]
         df.columns = ['ds', 'y']
         df = df.dropna()
